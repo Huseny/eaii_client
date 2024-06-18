@@ -13,13 +13,12 @@ class Listener:
 
         with sr.Microphone() as source:
             print("Say something in Amharic...")
-            audio_data = recognizer.listen(source, timeout=10)
+            audio_data = recognizer.listen(source, timeout=5, phrase_time_limit=5)
 
         try:
-            text = recognizer.recognize_google(audio_data, language="am-ET")
+            text = recognizer.recognize_google(audio_data, language="am")
             print("You said:", self.__add_white_spaces(text))
             return text
-        except sr.UnknownValueError:
-            print("could not understand the audio.")
-        except sr.RequestError as e:
-            print(f"Error with the request: {e}")
+        except Exception as e:
+            print("Error:", e)
+            return ""
